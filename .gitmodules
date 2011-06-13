@@ -1,0 +1,3 @@
+[submodule "tools/asunit"]
+	path = tools/asunit
+	url = git://github.com/kingfo/asunit.git
