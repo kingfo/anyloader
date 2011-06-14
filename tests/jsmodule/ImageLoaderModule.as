@@ -41,10 +41,11 @@ package  {
 					removeOn: adapter.loader.removeOn,
 					clear: adapter.loader.clear,
 					close: adapter.loader.close,
-					removeOn: adapter.insert
+					removeOn: adapter.insert,
+					setAuto: adapter.setAuto
 				};
 			
-			
+			AJBridge.bridge.addCallback(callbacks);
 			AJBridge.bridge.activate();
 			dispatchContentReady();
 		}

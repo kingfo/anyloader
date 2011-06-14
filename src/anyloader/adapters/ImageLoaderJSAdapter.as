@@ -39,6 +39,10 @@ package anyloader.adapters {
 			loader.insert(a,offset);
 		}
 		
+		public function setAuto(value:Boolean): void {
+			loader.auto = value;
+		}
+		
 		
 		
 		private function getContentInfo(src: String, params: Object = null, method: String = null): ContentInfo {
