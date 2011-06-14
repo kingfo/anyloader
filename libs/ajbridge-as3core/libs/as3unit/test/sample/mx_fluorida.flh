@@ -1,0 +1,3 @@
+|def|select_tabbar|$selector|$property|$value|
+|click|css=TabBar[$selector] > Tab[$property="$value"]|
+|end|

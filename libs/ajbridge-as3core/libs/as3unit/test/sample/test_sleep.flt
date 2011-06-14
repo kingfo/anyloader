@@ -1,0 +1,6 @@
+|open|aut_timer.swf|
+|verifyText|clock|0|
+|click|startButton|
+|sleep|2|
+|verifyText|clock|2|
+|click|stopButton|

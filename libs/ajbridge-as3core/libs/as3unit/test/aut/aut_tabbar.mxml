@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
+	<mx:TabBar height="30" id="tabBar" itemClick="onMainMenuClick(event);" top="50" width="100%" dataProvider="{mainMenus}" labelField="label" tabWidth="90">
+	</mx:TabBar>
+	<mx:ControlBar>
+		<mx:Button click="showTabBar();" label="Show TabBar"/>
+	
+		<mx:Button click="selectIndexOne();" label="Slect Label B"/>
+		
+		<mx:Button click="selectLabelC();" label="Slect Label C"/>
+	</mx:ControlBar>
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.core.UIComponent;
+			import mx.controls.Alert;
+			import mx.events.ItemClickEvent;
+			import flash.utils.getQualifiedClassName;
+			
+			[Bindable]
+			public var mainMenus : Array = [{label:'label A',name:'menu1'},{label:'label B',name:'menu2'},{label:'label C',name:'menu3'} ,{label:'label D',name:'menu4'}];
+			
+			private function onMainMenuClick(event:ItemClickEvent) : void {
+				Alert.show( event.item.name );
+			}
+			
+			private function showTabBar() : void {
+				var text:String = "elements:";
+				for ( var index:int = 0; index < tabBar.numChildren; index++ ) 
+				{
+					text += "\n" + index + " : ";
+					text += tabBar.getChildAt( index ).toString();
+					text += "\n className : " + getQualifiedClassName( tabBar.getChildAt( index ) );
+				}
+				text += "\n label Of Tab : " + ( tabBar.getChildAt( 0 ) as Object ).label;
+				Alert.show( text );
+			}
+			
+			private function selectIndexOne() : void {
+				tabBar.selectedIndex = 1;
+			}
+			
+			private function selectLabelC() : void {
+				
+				for ( var index:int = 0; index < tabBar.numChildren; index++ ) 
+				{
+					var selectItem : Object = tabBar.getChildAt( index ) as Object;
+					if( selectItem.label == "label C" )
+						tabBar.selectedIndex = tabBar.getChildIndex( selectItem as DisplayObject );
+				}
+			}
+			
+		]]>
+	</mx:Script>
+</mx:Application>

@@ -1,0 +1,12 @@
+|open|aut.swf|
+
+|verifyElementPresent|css=TextInput|
+|verifyElementPresent|css=TextInput[id="helloText"]|
+
+|verifyElementProperty|css=*|id|helloText|
+|verifyElementProperty|css=*[id='helloText']|doubleClickEnabled|true|
+
+|verifyElementProperty|css=VBox > Text|id|dummy|
+|verifyElementProperty|css=VBox > VBox[id="innerBox"] > Text|id|anotherDummy|
+|verifyElementProperty|css=VBox > VBox > Text|id|innerDummy|
+|verifyElementProperty|css=VBox > * > Text|id|innerDummy|

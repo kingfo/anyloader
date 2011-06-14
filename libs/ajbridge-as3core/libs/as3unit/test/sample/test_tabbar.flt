@@ -1,0 +1,4 @@
+|open|aut_tabbar.swf|
+|click|css=TabBar[id="tabBar"] > Tab[label="label B"]|
+|sleep|1|
+|closePopup|ok|

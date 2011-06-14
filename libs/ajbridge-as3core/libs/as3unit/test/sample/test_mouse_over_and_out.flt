@@ -1,0 +1,5 @@
+|open|aut.swf|
+|mouseOver|helloText|
+|verifyText|helloText|mouse in|
+|mouseOut|helloText|
+|verifyText|helloText|mouse out|

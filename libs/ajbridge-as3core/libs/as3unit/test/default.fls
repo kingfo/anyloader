@@ -1,0 +1,33 @@
+# Write your test suite here.
+# For example:
+# 
+sample/test_open.flt
+sample/test_type.flt
+sample/test_click.flt
+sample/test_click_at.flt
+sample/test_double_click.flt
+sample/test_wait_for_element_property.flt
+sample/test_select.flt
+sample/test_mouse_over_and_out.flt
+sample/test_drag_and_drop.flt
+sample/test_regexp.flt
+sample/test_verify_element_present.flt
+sample/test_locators.flt
+sample/test_sleep.flt
+sample/test_custom_component.flt
+sample/test_style.flt
+sample/test_popup.flt
+sample/test_tabbar.flt
+sample/test_tabbar_by_customaction.flt
+sample/test_tabbar_by_import_headfile.flt
+sample/test_tabbar_by_variable.flt
+sample/test_tabbar_by_variable_failed.flt
+sample/test_datagrid_select_item.flt
+sample/test_list_select_item.flt
+#sample/test_tree_expand_item.flt
+
+# it takes too long
+# sample/test_set_timeout.flt
+
+# this case fails
+# sample/fail_case.flt

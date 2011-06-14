@@ -1,0 +1,4 @@
+<fluorida
+	postResultTo="http://localhost:3000/fluorida/report"
+	baseUrl="http://localhost:3000/fluorida"
+/>

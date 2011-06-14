@@ -1,0 +1,5 @@
+|import|sample/mx_datagrid.flh|
+|open|aut_DataGrid_Analyse.swf|
+|sleep|1|
+|select_datagrid|css=DataGrid[id="dg"]|Joanne Wall|
+#|click|css=DataGrid[id="dg"] > ListBaseContentHolder > *[text="Joanne Wall"]|

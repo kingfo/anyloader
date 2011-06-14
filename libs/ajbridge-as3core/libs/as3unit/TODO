@@ -1,0 +1,43 @@
+***** Current Version Under Development: 0.0.2 *****
+
+===== FEATURES =====
+
+Action:	verifyElementPresent / waitForElementPresent (done)
+Action: sleep (done)
+Action:	verifyStyle (done)
+CSS selector: simple / type / attribute (done)
+CSS selector: universal (done)
+CSS selector: children (done)
+Generate XML report (done)
+Post result to url specified in config.xml (done)
+Handle alerts (done)
+Rails plugin (done)
+
+Display all test cases/commands before run them
+Click to select test case
+Run current test case
+Click to create breakpoint
+Pause at breakpoint
+Resume after pause
+Step after pause
+Specify default suite url in config.xml
+CSS selectors:
+	descendant - refactor Selector first
+	position
+	pseudo-classes
+	...
+Specify "autorun" from containing HTML
+More indicative error message from verifyElementProperty
+Any other actions?
+
+===== DEFECTS =====
+
+DragAndDrop should bring data in DragSource
+
+
+===== HOUSE CLEAN =====
+Cleanup TestLoader (done)
+
+"Dogfood" tests
+Continuous Integration Environment (where to host?)
+Is it possible (and/or necessary) to have parrel verify/waitFor actions?

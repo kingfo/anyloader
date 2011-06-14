@@ -1,0 +1,6 @@
+|open|aut_customcomponent.swf|
+
+|select|css=CustomComboBox[id="customComponent"] > ComboBox|index|1|
+|waitForElementProperty|css=CustomComboBox[id="customComponent"] > Canvas > Text|text|#00ff12|
+|verifyStyle|css=CustomComboBox[id="customComponent"] > Canvas|backgroundColor|65298|
+# #00ff12(hex) == 65298(dec)

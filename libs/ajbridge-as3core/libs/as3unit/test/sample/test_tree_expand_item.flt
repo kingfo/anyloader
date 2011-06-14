@@ -1,0 +1,4 @@
+|import|sample/mx_tree.flh|
+|open|aut_Tree_Analyse.swf|
+|sleep|1|
+|expand_tree|css=Tree[id="myTree"]|Inbox|

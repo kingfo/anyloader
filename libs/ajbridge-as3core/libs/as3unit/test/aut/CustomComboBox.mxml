@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" 
+	height="32" verticalAlign="middle" horizontalAlign="left" >
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+			
+			public function set dataProvider(dataProvider:ArrayCollection) : void {
+				this.realComboBox.dataProvider=dataProvider;
+				
+			}
+			
+			public function get text() : String {
+				return realComboBox.selectedLabel;
+			}
+			
+			private function changeColor() : void {
+				colorShower.setStyle("backgroundColor",realComboBox.selectedItem.value);
+				colorText.text = realComboBox.selectedItem.value;
+			}
+
+		]]>
+	</mx:Script>
+	<mx:Canvas id="colorShower" width="20" height="20">
+		<mx:Text id="colorText" />
+	</mx:Canvas>
+	<mx:ComboBox id="realComboBox" updateComplete="changeColor()" />
+</mx:HBox>

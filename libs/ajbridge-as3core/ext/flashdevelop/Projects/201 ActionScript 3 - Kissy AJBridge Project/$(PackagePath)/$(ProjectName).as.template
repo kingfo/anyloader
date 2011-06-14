@@ -1,0 +1,22 @@
+package $(PackageName)$(CSLB){
+	import com.xintend.display.Spirit;
+	
+	/**
+	$(CBI)* ...
+	$(CBI)* @author $(DefaultUser)
+	$(CBI)*/
+	public class $(ProjectName) extends Spirit $(CSLB){
+		
+		public function $(ProjectName)():void $(CSLB){
+			
+		}
+		
+		override public function init():void {
+			super.init();
+			// entry point
+			
+		}
+		
+	}
+	
+}

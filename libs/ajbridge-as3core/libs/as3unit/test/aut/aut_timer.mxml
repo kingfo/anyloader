@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+ xmlns:mx="http://www.adobe.com/2006/mxml"
+ layout="vertical"
+ backgroundGradientColors="[#ffffff, #c0c0c0]"
+ width="100%"
+ height="100%">
+ 	<mx:Script>
+        <![CDATA[
+			import flash.utils.Timer;
+			import flash.events.TimerEvent;
+
+			private var timer:Timer;
+		
+ 			private function startTimer() : void {
+				timer = new Timer(1000, 0);
+				timer.addEventListener(TimerEvent.TIMER, addClock);
+				timer.start();
+			}
+			
+			private function stopTimer() : void {
+				timer.stop();
+			}
+			
+			private function addClock(event:TimerEvent) : void {
+				var currentTime:int = parseInt(clock.text);
+				clock.text = (currentTime + 1).toString();
+			}
+        ]]>
+	</mx:Script>
+
+    <mx:Text id="clock" text="0" />
+	<mx:Button label="Start" name="startButton" click="startTimer();" />
+	<mx:Button label="Stop" name="stopButton" click="stopTimer()" />
+</mx:Application>

@@ -1,0 +1,5 @@
+|def|expand_tree|$selector|$textValue|
+|click|$selector > ListBaseContentHolder > * >UITextField[text="$textValue"]|
+|assign|$selector|selectedIndex|{|call|$selector|itemRendererToIndex|$selector > ListBaseContentHolder > *{css=UITextField[text="$textValue"]}|}|
+|call|$selector|expandItem|{|call|$selector|selectedItem|}|true|
+|end|

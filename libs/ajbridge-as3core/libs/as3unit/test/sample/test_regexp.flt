@@ -1,0 +1,4 @@
+|open|aut.swf|
+|click|helloButton|
+|waitForElementProperty|helloText|text|regexp:hi.*|
+|verifyText|helloText|regexp:hi.*|

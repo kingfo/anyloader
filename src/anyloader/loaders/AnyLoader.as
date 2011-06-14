@@ -98,7 +98,6 @@ package anyloader.loaders {
 		 * 移除指定的加载项
 		 * @param	field
 		 * @param	value
-		 * @param	force
 		 */
 		public function removeOn(field: String,value:*): void {
 			var idx: int;

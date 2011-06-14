@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:custom="*">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.managers.PopUpManager;
+			import mx.controls.Alert; 
+			
+			public function set submitFunctionHandle(submitFunction : Function) : void {
+				this._submitFunction = submitFunction;
+			}
+			
+			private var _submitFunction : Function;
+			
+			[Bindable]
+			private var colors:ArrayCollection = new ArrayCollection(
+				[ {label:"Blue",value:"#009dff"},
+				  {label:"Green",value:"#00ff12"},
+				  {label:"Red",value:"#ff1800"} ] );
+				  
+			private function submitForm() : void {
+					user.team = team.text;
+					_submitFunction(user);
+			}
+			
+			private function showMutilValueInputDialog() : void {
+				var multiValueInputDialog : MultiValueInputDialog = MultiValueInputDialog(
+										PopUpManager.createPopUp(this, MultiValueInputDialog, true));
+				multiValueInputDialog.okFunctionHandle = setUserPhoneNoMultiValue;
+				PopUpManager.centerPopUp(multiValueInputDialog);
+			}
+			
+			private function setUserPhoneNoMultiValue( phoneNos : ArrayCollection ) : void {
+				user.phoneNos = phoneNos;
+			}
+		]]>
+	</mx:Script>
+	<custom:User id="user" 
+		name="{userName.text}" 
+		sex="{sexRadios.selectedValue}"
+		email="{email.text}"  
+		password="{password.text}"
+		birthday="{birthday.selectedDate}"
+		mainPhoneNo="{phoneNo.text}"
+		favouriteColor="{favouriteColor.selectedColor.toString()}"
+		/>
+	<mx:Form width="100%" height="100%">
+		<mx:FormItem label="Full Name :">
+			<mx:TextInput id="userName"/>
+		</mx:FormItem>
+		<mx:FormItem label="Sex:">
+				<mx:RadioButtonGroup id="sexRadios" />
+				<mx:HBox>
+					<mx:RadioButton label="Male" groupName="sexRadios"/>
+					<mx:RadioButton label="Female" groupName="sexRadios"/>
+				</mx:HBox>
+		</mx:FormItem>
+		<mx:FormItem label="Your Email :">
+			<mx:TextInput id="email"/>
+		</mx:FormItem>
+		<mx:FormItem label="Password:">
+			<mx:TextInput id="password" displayAsPassword="true"/>
+		</mx:FormItem>
+		<mx:FormItem label="Birthday :">
+				<mx:DateField id="birthday" />
+		</mx:FormItem>
+		<mx:FormItem label="Your Phone No. :">
+			<mx:HBox>
+				<mx:TextInput id="phoneNo"/><mx:Button id="multiValuesTrigger" label="multiValue" click="showMutilValueInputDialog();"/>
+			</mx:HBox>
+		</mx:FormItem>
+		<mx:FormItem label="Your Team :">
+			<custom:CustomComboBox id="team" dataProvider="{colors}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Your Favourite Color :">
+				<mx:ColorPicker id="favouriteColor"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:ControlBar horizontalAlign="center">
+		<mx:Button label="Submit" click="submitForm();"/>
+		<mx:Button label="Cancel" />
+	</mx:ControlBar>
+</mx:Panel>

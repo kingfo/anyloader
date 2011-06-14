@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+    <mx:Script>
+        <![CDATA[
+        	[Bindable]
+            public var selectedItem:Object;
+       ]]>
+    </mx:Script>
+
+
+    <mx:Model id="mystates">
+      <states>
+        <state label="Alabama" data="AL"/>
+        <state label="Alaska" data="AK"/>
+        <state label="Arizona" data="AZ"/>
+        <state label="Arkansas" data="AR"/>
+        <state label="California" data="CA"/>
+        <state label="Colorado" data="CO"/>
+        <state label="Connecticut" data="CT"/>
+      </states>
+    </mx:Model>
+	<mx:ApplicationControlBar width="100%" tabChildren="true" id="appControlBar">
+        <mx:Label text="Dashboard:" id="dashboardLabel"/>
+        <mx:Spacer width="100%"/>
+        <mx:Button id="btnFlexSpy" label="FlexSpy " click="FlexSpy.show()" />
+        <mx:Button id="btnAnalyse" label="AnalyseDataGrid " click="analyseDataGrid()" />
+    </mx:ApplicationControlBar>
+ 
+     <mx:Panel title="List Control Example" height="75%" width="75%" 
+        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+
+        <mx:Label text="Select a state to see its abbreviation."/>
+
+        <mx:List id="source" width="100%" color="blue"
+            dataProvider="{mystates.state}"
+            change="this.selectedItem=List(event.target).selectedItem"/>
+
+        <mx:VBox width="100%">
+            <mx:Label text="Selected State: {selectedItem.label}"/>
+            <mx:Label text="State abbreviation: {selectedItem.data}"/>
+        </mx:VBox>
+
+    </mx:Panel>
+    	<mx:Script>
+
+        <![CDATA[
+        	import mx.controls.listClasses.IListItemRenderer;
+        	import mx.controls.Alert;
+        	import mx.managers.ISystemManager;
+	        import com.flexspy.KeySequence;
+	        import com.flexspy.FlexSpy;
+	        import mx.controls.sliderClasses.SliderThumb;
+	        import mx.core.UIComponent;
+	        import mx.collections.ArrayCollection;
+	        import mx.rpc.events.*;
+	        import mx.modules.*; 
+			import mx.core.Singleton;
+			
+	        [Bindable]
+	        private var periodToolTip:String = "";
+	         
+	        [Bindable] 
+	        private var dashboardToolTip:String = "";
+	                
+	        private function initApp():void
+	        {
+	        	
+	            FlexSpy.registerKey(new KeySequence(123, true, false, false));
+	            FlexSpy.registerJS();
+	            this.btnFlexSpy.setFocus();
+	            
+	        }
+	
+			
+	       	private function labelsComp():void
+	       	{
+	       		if(Accessibility.active) 
+	       		{
+	       			dashboardLabel.accessibilityProperties.silent = true;
+	       		}
+	       	}
+	       	
+	       	private function analyseDataGrid() : void 
+	       	{
+	       		var listBaseContentHolder : UIComponent = source.getChildAt(2) as UIComponent
+//	       		Alert.show(listBaseContentHolder.numChildren.toString());
+				for ( var index : Number = 0; index < listBaseContentHolder.numChildren; index++ )
+				{
+					var itemRenderer : UIComponent = listBaseContentHolder.getChildAt(index) as UIComponent;
+					if ( itemRenderer!=null)
+					{
+						if (itemRenderer.getChildAt(0)["text"] =="California")
+						{
+							itemRenderer.dispatchEvent( new MouseEvent(MouseEvent.CLICK));
+							this.source.selectedIndex = this.source.itemRendererToIndex(itemRenderer as IListItemRenderer);
+							itemRenderer.getChildAt(0).dispatchEvent( new MouseEvent(MouseEvent.CLICK));
+//							Alert.show("find it");
+						}
+					}
+				}	
+	       	}
+	        ]]>
+
+    </mx:Script>
+</mx:Application>        

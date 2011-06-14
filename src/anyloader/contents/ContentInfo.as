@@ -55,6 +55,9 @@ package anyloader.contents {
 		public function setParams(value:*):void {
 			_params = value;
 		}
+		public function setMethod(value:*):void {
+			_method = value;
+		}
 		
 		public function toString(): String {
 			return '[object ContentInfo' + ' src=' + src + ' status=' + status + ' method=' + method + ']'

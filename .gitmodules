@@ -1,3 +1,6 @@
 [submodule "tools/asunit"]
 	path = tools/asunit
 	url = git://github.com/kingfo/asunit.git
+[submodule "libs/ajbridge-as3core"]
+	path = libs/ajbridge-as3core
+	url = git@github.com:kingfo/ajbridge-as3core.git

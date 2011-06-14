@@ -1,0 +1,9 @@
+|open|aut_tabbar.swf|
+|def|select_tabbar|$selector|$property|$value|
+|click|css=TabBar[$selector] > Tab[$property="$value"]|
+|end|
+|select_tabbar|id="tabBar"|label|label B|
+|sleep|1|
+|closePopup|ok|
+
+#|select|css=TabBar[id="tabBar"]|label|

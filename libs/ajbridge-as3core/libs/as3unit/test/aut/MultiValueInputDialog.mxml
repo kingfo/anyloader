@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
+		<mx:Style>
+		.inputContainerStyle {
+			top : 2px;
+			bottom : 2px;
+			left : 2px;
+			right : 2px;
+			vertical-gap : 2px;
+			horizontal-align : center;
+		}
+		
+		.inputElement {
+			top : 2px;
+		}
+		
+	</mx:Style>
+	<mx:Script>
+		<![CDATA[
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.controls.TextInput;
+			import mx.containers.HBox;
+			import mx.core.UIComponent;
+			
+			public function set okFunctionHandle( outsideFunction : Function ) : void{
+				this._outsideFunction = outsideFunction;
+			}
+			
+			private var _outsideFunction:Function;
+			
+			private function deleteInputItem(event:MouseEvent):void{
+				for each( var inputItem:UIComponent in inputContainer.getChildren())
+				{
+					if(inputItem.getChildAt(1) == event.currentTarget)
+					{
+						inputContainer.removeChild(inputItem);
+						break;
+					}
+				}
+			}
+			
+			private function addInputElement(event:MouseEvent):void{
+				var inputElement : HBox = new HBox;
+				inputElement.styleName = "inputElement";
+				inputElement.addChild(new TextInput);
+				var deleteButton : Button  = new Button;
+				deleteButton.label = "Delete";
+				deleteButton.addEventListener(MouseEvent.CLICK, deleteInputItem);
+				inputElement.addChild(deleteButton);
+				var insertPosition : int = inputContainer.getChildIndex(event.currentTarget as DisplayObject);
+				inputContainer.addChildAt(inputElement, insertPosition);
+			}
+			
+			private function okHandle(event : MouseEvent) : void {
+				var result : ArrayCollection = new ArrayCollection;
+				for each( var inputItem : UIComponent in inputContainer.getChildren())
+				{
+					if ( inputItem is HBox ) {
+						result.addItem((inputItem.getChildAt(0) as TextInput).text);
+					}
+				}
+				_outsideFunction(result);
+				PopUpManager.removePopUp(this);
+			}
+			
+			private function cancelHandle(event : MouseEvent) : void {
+				PopUpManager.removePopUp(this);
+			}
+		]]>
+	</mx:Script>
+	<mx:VBox id="inputContainer" width="100%" height="100%" styleName="inputContainerStyle">
+		<mx:Canvas id="addItemCanvas" width="98%" height="20"
+			 backgroundColor="#CCE7F8" alpha="0.5" mouseOver="addItemCanvas.alpha = 1.0;"
+			 mouseOut="addItemCanvas.alpha = 0.5;" click="addInputElement(event);">
+		</mx:Canvas>
+	</mx:VBox>
+	<mx:ControlBar horizontalAlign="right">
+		<mx:Button id="okButton" label="OK" click="okHandle(event);"/>
+		<mx:Button id="cancelButton" label="Cancel" click="cancelHandle(event)"/>
+	</mx:ControlBar>
+</mx:Panel>

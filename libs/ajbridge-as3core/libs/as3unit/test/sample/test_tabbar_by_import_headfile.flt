@@ -1,0 +1,5 @@
+|open|aut_tabbar.swf|
+|import|sample/mx_fluorida.flh|
+|select_tabbar|id="tabBar"|label|label B|
+|sleep|1|
+|closePopup|ok|

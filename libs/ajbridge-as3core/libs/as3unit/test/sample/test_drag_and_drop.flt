@@ -1,0 +1,3 @@
+|open|aut_dragndrop.swf|
+|dragAndDrop|myText|myCanvas|100|50|
+|verifyText|location|X: 100, Y: 50|

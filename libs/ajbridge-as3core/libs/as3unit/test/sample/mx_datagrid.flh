@@ -1,0 +1,4 @@
+|def|select_datagrid|$selector|$textValue|
+|click|$selector > ListBaseContentHolder > *[text="$textValue"]|
+|assign|$selector|selectedIndex|{|call|$selector|itemRendererToIndex|$selector > ListBaseContentHolder > *[text="$textValue"]|}|
+|end|

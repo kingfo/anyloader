@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!-- dragdrop\DandDImage.mxml -->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+
+    <mx:Script>
+        <![CDATA[
+            //Import classes so you don't have to use full names.
+            import mx.managers.DragManager;
+            import mx.core.DragSource;
+            import mx.events.DragEvent;
+            import flash.events.MouseEvent;
+
+            // The mouseMove event handler for the Image control
+            // initiates the drag-and-drop operation.
+            private function mouseMoveHandler(event:MouseEvent):void 
+            {                
+                var dragInitiator:Text=Text(event.currentTarget);
+                var ds:DragSource = new DragSource();
+                DragManager.doDrag(dragInitiator, ds, event);
+            }
+            
+            // The dragEnter event handler for the Canvas container
+            // enables dropping.
+            private function dragEnterHandler(event:DragEvent):void {
+                DragManager.acceptDragDrop(Canvas(event.currentTarget));
+            }
+
+            // The dragDrop event handler for the Canvas container
+            // sets the Image control's position by 
+            // "dropping" it in its new location.
+            private function dragDropHandler(event:DragEvent):void {
+            	var initiator:Text = Text(event.dragInitiator);
+                initiator.x = event.localX;
+                initiator.y = event.localY;
+                location.text = "X: " + initiator.x + ", Y: " + initiator.y;
+            }
+        ]]>
+    </mx:Script>
+    
+    <mx:Text id="location" />
+    
+    <!-- The Canvas is the drag target --> 
+    <mx:Canvas id="myCanvas" 
+        width="500" height="500"  
+        borderStyle="solid" 
+        backgroundColor="#DDDDDD"
+        dragEnter="dragEnterHandler(event);" 
+        dragDrop="dragDropHandler(event);">
+        
+        <!-- The image is the drag initiator. -->
+        <mx:Text id="myText" text="Drag and drop me" mouseMove="mouseMoveHandler(event);"/> 
+    </mx:Canvas>
+</mx:Application>

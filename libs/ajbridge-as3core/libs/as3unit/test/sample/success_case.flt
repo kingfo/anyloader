@@ -1,0 +1,4 @@
+# This is a successful test case
+|open|aut.swf|
+|click|helloButton|
+|verifyText|helloText|hi there|

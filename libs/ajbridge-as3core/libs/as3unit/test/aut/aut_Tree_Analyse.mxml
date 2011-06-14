@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical">
+    <mx:ApplicationControlBar width="100%" tabChildren="true" id="appControlBar">
+        <mx:Label text="Dashboard:" id="dashboardLabel"/>
+        <mx:Spacer width="100%"/>
+        <mx:Button id="btnFlexSpy" label="FlexSpy " click="FlexSpy.show()" />
+        <mx:Button id="btnTryExpand" label="Expand Node Inbox" click="expand();" />
+    </mx:ApplicationControlBar>
+    <mx:Panel title="Tree Control Example" height="75%" width="75%" 
+        paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
+
+        <mx:Label width="100%" color="blue" 
+            text="Select a node in the Tree control."/>
+
+        <mx:HDividedBox width="100%" height="100%">
+            <mx:Tree id="myTree" width="50%" height="100%" labelField="@label"
+                showRoot="false" dataProvider="{treeData}" change="treeChanged(event)"/>
+            <mx:TextArea height="100%" width="50%"
+                text="Selected Item: {selectedNode.@label}"/>
+        </mx:HDividedBox>
+        
+    </mx:Panel>
+    
+    <mx:XMLList id="treeData">
+	    <node label="Mail Box">
+	        <node label="Inbox">
+	            <node label="Marketing"/>
+	            <node label="Product Management"/>
+	            <node label="Personal"/>
+	        </node>
+	        <node label="Outbox">
+	            <node label="Professional"/>
+	            <node label="Personal"/>
+	        </node>
+	        <node label="Spam"/>
+	        <node label="Sent"/>
+		</node>	
+    </mx:XMLList>
+    
+    <mx:Script>
+        <![CDATA[
+        	import mx.controls.listClasses.IListItemRenderer;
+        	import mx.controls.Alert;
+        	import mx.managers.ISystemManager;
+	        import com.flexspy.KeySequence;
+	        import com.flexspy.FlexSpy;
+	        import mx.controls.sliderClasses.SliderThumb;
+	        import mx.core.UIComponent;
+	        import mx.collections.ArrayCollection;
+	        import mx.rpc.events.*;
+	        import mx.modules.*; 
+			import mx.core.Singleton;
+			
+            [Bindable]
+            public var selectedNode:XML;
+            
+	        [Bindable]
+	        private var periodToolTip:String = "";
+	         
+	        [Bindable] 
+	        private var dashboardToolTip:String = "";
+	                
+	        private function initApp():void
+	        {
+	        	
+	            FlexSpy.registerKey(new KeySequence(123, true, false, false));
+	            FlexSpy.registerJS();
+	            this.btnFlexSpy.setFocus();
+	            
+	        }
+	
+			
+	       	private function labelsComp():void
+	       	{
+	       		if(Accessibility.active) 
+	       		{
+	       			dashboardLabel.accessibilityProperties.silent = true;
+	       		}
+	       	}
+	       	
+            // Event handler for the Tree control change event.
+            public function treeChanged(event:Event):void {
+                selectedNode=Tree(event.target).selectedItem as XML;
+            }
+            
+            private function expand() : void {
+            	var listBaseContentHolder : UIComponent = this.myTree.getChildAt(2) as UIComponent
+				for ( var index : Number = 0; index < listBaseContentHolder.numChildren; index++ )
+				{
+					var itemRenderer : UIComponent = listBaseContentHolder.getChildAt(index) as UIComponent;
+					if ( itemRenderer!=null)
+					{
+						if (itemRenderer.getChildAt(0)["text"] =="Inbox")
+						{
+//							itemRenderer.dispatchEvent( new MouseEvent(MouseEvent.CLICK));
+//							this.source.selectedIndex = this.source.itemRendererToIndex(itemRenderer as IListItemRenderer);
+//							itemRenderer.getChildAt(0).dispatchEvent( new MouseEvent(MouseEvent.CLICK));
+//							Alert.show("find it");
+							this.myTree.selectedIndex = this.myTree.itemRendererToIndex( itemRenderer as IListItemRenderer );
+							this.myTree.expandItem(this.myTree.selectedItem,true);
+						}
+					}
+				}
+            	
+            }
+        ]]>
+    </mx:Script>
+
+</mx:Application>

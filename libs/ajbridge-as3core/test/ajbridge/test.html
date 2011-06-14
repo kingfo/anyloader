@@ -1,0 +1,289 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>AJBridage Test</title>
+</head>
+<body>
+
+<h2>AJBridage Test</h2>
+
+<script src="../../../kissy/build/test/test.js"></script>
+<script>KISSY.Test.Config.times = 1;</script>
+
+<script src="../../../kissy/build/kissy.js"></script>
+<script src="../../../kissy/build/flash/flash-pkg.js"></script> 
+
+<script src="ajbridge.js"></script>
+
+
+<div id="myFlashContent">
+    <a href="http://www.adobe.com/go/getflashplayer">
+        <img src="../../assets/get_flash_player.gif" alt="Get Adobe Flash player"/>
+    </a>
+</div>
+<div id="myFlashContent2">
+    <a href="http://www.adobe.com/go/getflashplayer">
+        <img src="../../assets/get_flash_player.gif" alt="Get Adobe Flash player"/>
+    </a>
+</div>
+
+
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="400" height="300" id="myFlashContent3">
+    <param name="movie" value="ajbridge.swf"/>
+    <param name="allowscriptaccess" value="always"/>
+    <param name="bgcolor" value="#C4C4C4"/>
+    <param name="flashvars" value="jsEntry=KISSY.AJBridge.eventHandler&amp;swfID=myFlashContent3"/>
+    <!--[if !IE]>-->
+    <object type="application/x-shockwave-flash" data="ajbridge.swf" width="400" height="300">
+        <param name="allowscriptaccess" value="always"/>
+        <param name="flashvars" value="jsEntry=KISSY.AJBridge.eventHandler&amp;swfID=myFlashContent3"/>
+        <param name="bgcolor" value="#C4C4C4"/>
+        <!--<![endif]-->
+        <a href="http://www.adobe.com/go/getflashplayer">
+            <img src="../../assets/get_flash_player.gif" alt="Get Adobe Flash player"/>
+        </a>
+        <!--[if !IE]>-->
+    </object>
+    <!--<![endif]-->
+</object>
+
+
+<script>
+    var S = KISSY,
+            Flash = KISSY.Flash,
+            AJBridge = KISSY.AJBridge;
+
+
+    function test_pure(test) {
+        var id = "myFlashContent",
+            config = {
+                src : "ajbridge.swf",
+                attrs: {
+                    width: 400,
+                    height: 300
+                },
+                params:{
+                    bgcolor:"#C4C4C4"
+                }
+            };
+
+        var bridge = new AJBridge(id, config);
+
+        bridge.on("failed", function(ev) {
+            test.fail();
+            test.echo('failed：' + ev.message.status);
+        });
+
+        bridge.on("error", function(ev) {
+            test.fail();
+            test.echo('error：' + ev.message);
+        });
+
+        bridge.on("as3Init", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>");
+        });
+
+        bridge.on("addCallback", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>");
+        });
+
+        bridge.on("addCallbacks", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>");
+        });
+
+        bridge.on("swfReady", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>");
+            //if (bridge.getReady() != "ready")test.fail();
+           // 
+        });
+		
+		 bridge.on("bridgeReady", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type+ "， isSWFReady:" + bridge.getReady() + "<br/>");
+            if (bridge.getReady() != "ready")test.fail();
+            
+        });
+		
+		test.echo("auto init");
+        //bridge.init();
+    }
+
+    function test_complex(test) {
+        var bridge,
+                id = "myFlashContent2",
+                config = {
+                    src : "ajbridge.swf",
+                    attrs: {
+                        width: 400,
+                        height: 300
+                    },
+                    params:{
+                        bgcolor:"#C4C4C4",
+                        flashvars:{
+                            key:"value",
+                            json:{
+                                url:"http://YOURDOMAIN.com/entry?t=2&c=3",
+                                obj:{
+                                    num:1,
+                                    booolean:true,
+                                    arr:[1,"2",true,"http://www.adobe.com/"]
+                                }
+                            }
+                        }
+                    }
+                };
+
+        bridge = new AJBridge(id, config,true);
+
+        bridge.on("failed", function(ev) {
+            test.fail();
+            test.echo('failed：' + ev.message.status);
+        });
+
+        bridge.on("error", function(ev) {
+            test.fail();
+            test.echo('error：' + ev.message);
+        });
+
+        bridge.on("init", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>");
+        });
+
+        bridge.on("addCallback", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>");
+        });
+
+        bridge.on("addCallbacks", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>");
+        });
+
+        bridge.on("swfReady", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>");
+			 test.echo('id: ' + ev.id, ',type: ' + ev.type+ "， isSWFReady:" + bridge.getReady() + "<br/>");
+			 if (bridge.getReady() != "ready") {
+				test.fail();
+				 test.echo('[swfReady]bridge.getReady error!');
+			}
+        });
+		 bridge.on("bridgeReady", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type+ "， isSWFReady:" + bridge.getReady() + "<br/>");
+            if (bridge.getReady() != "ready") {
+				test.fail();
+				 test.echo('bridge.getReady error!');
+			}
+            
+        });
+		test.echo("manual init");
+        bridge.init();
+    }
+
+    function test_empty(test) {
+        var bridge, id = "non-exist",
+                config = {
+                    attrs: {
+                        width: 400,
+                        height: 300
+                    },
+                    params:{
+                        bgcolor:"#C4C4C4"
+                    }
+                };
+
+        bridge = new AJBridge(id, config);
+
+        bridge.on("failed", function(ev) {
+            if (ev.message.status != -2)test.fail();
+        });
+
+        bridge.on("error", function() {
+            test.fail();
+        });
+
+        bridge.on("init", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>");
+        });
+
+        bridge.on("addCallback", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>");
+        });
+
+        bridge.on("addCallbacks", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>");
+        });
+
+        bridge.on("swfReady", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>");
+        });
+		 bridge.on("bridgeReady", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>" + "， isSWFReady:" + bridge.getReady());
+            if (bridge.getReady() != "ready")test.fail();
+        });
+		
+        //bridge.init();
+    }
+
+    var tg;
+    function test_static(test) {
+        var id = "myFlashContent3";
+
+        var bridge = new AJBridge(id);
+
+        bridge.on("failed", function(ev) {
+            test.fail();
+            test.echo('failed：' + ev.message.status);
+        });
+
+        bridge.on("error", function(ev) {
+            test.fail();
+            test.echo('error：' + ev.message);
+        });
+
+        bridge.on("init", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>");
+        });
+
+        bridge.on("addCallback", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>");
+        });
+
+        bridge.on("addCallbacks", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>");
+        });
+
+        bridge.on("swfReady", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type + "<br/>");
+        });
+		 bridge.on("bridgeReady", function(ev) {
+            
+            test.echo('id: ' + ev.id, ',type: ' + ev.type+ "， isSWFReady:" + bridge.getReady() + "<br/>");
+            if (bridge.getReady() != "ready")test.fail();
+            
+        });
+
+        bridge.init();
+    }
+
+    //event type see: http://code.google.com/p/kissy/wiki/AboutAJBridge_CN#公开的事件类型
+
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<% tester_swf = "Tester.swf" %>
+
+<html>
+
+<head><title>Fluorida Showcase</title></head>
+	
+<body>
+
+<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+     id="Tester" width="800" height="600"
+     codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">
+ <param name="movie" value="<%= tester_swf %>" />
+ <param name="allowScriptAccess" value="always" />
+ <embed src="<%= tester_swf %>" name="Tester" align="middle" allowScriptAccess="always"
+     play="true" loop="false" type="application/x-shockwave-flash"
+	 width="800" height="600"
+     pluginspage="http://www.macromedia.com/go/getflashplayer">
+  </embed>
+</object>
+
+<script>
+     function thisMovie(movieName) {
+         if (navigator.appName.indexOf("Microsoft") != -1) {
+             return window[movieName];
+         } else {
+             return document[movieName];
+         }
+     }
+     
+     function startTest() {
+	     thisMovie("Tester").setTestSuite("<%= @suite_url %>");
+	     thisMovie("Tester").startTest();
+     }
+</script>
+
+</body></html>

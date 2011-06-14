@@ -1,0 +1,4 @@
+|setTimeout|10|
+|open|aut.swf|
+|click|moreDelayHelloButton|
+|waitForElementProperty|helloText|text|delayed hello|

@@ -1,0 +1,3 @@
+|open|aut.swf|
+|click|helloButton|
+|verifyText|helloText|hi there|

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" xmlns:ns1="*">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+			
+			[Bindable]
+			private var colors:ArrayCollection = new ArrayCollection(
+				[ {label:"Blue",value:"#009dff"},
+				  {label:"Green",value:"#00ff12"},
+				  {label:"Red",value:"#ff1800"} ] );
+				  
+			private function showSubmitInfo(user:User):void{
+				var userInfo : ArrayCollection = new ArrayCollection;
+				userInfo.addItem("name : " + user.name);
+				userInfo.addItem("sex : " + user.sex);
+				userInfo.addItem("password : " + user.password);
+				userInfo.addItem("email : " + user.email);
+				userInfo.addItem("birthday : " + user.birthday.toDateString());
+				userInfo.addItem("mainPhoneNo : " + user.mainPhoneNo);
+				userInfo.addItem("favouriteColor : " + user.favouriteColor.toString());
+				userInfo.addItem("team : " + user.team);
+				var phoneNos : ArrayCollection = user.phoneNos;
+				for( var index : Number = 0 ; index < phoneNos.length; index++ ){
+					userInfo.addItem("pohoneNo " + index + " : " + phoneNos[index]);
+				}
+				dashboard.dataProvider = userInfo;
+			}
+		]]>
+	</mx:Script>
+	<ns1:CustomComboBox id="customComponent" dataProvider="{colors}">
+	</ns1:CustomComboBox>
+	<ns1:CustomComplexForm id="customForm" submitFunctionHandle="{showSubmitInfo}">
+	</ns1:CustomComplexForm>
+	<mx:List id="dashboard"/> 
+</mx:Application>

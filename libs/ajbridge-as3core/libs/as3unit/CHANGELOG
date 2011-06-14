@@ -1,0 +1,13 @@
+===== Release 0.0.1 FEATURES =====
+
+Tester UI
+Specify test suite in Tester UI or containing HTML
+
+Actions: 
+	verifyText waitForElementProperty verifyElementProperty 
+	open type select mouseOver mouseOut dragAndDrop doubleClick clickAt 
+	setTimeout
+
+Support Regexp in verifyElementProperty/waitForElementProperty
+
+Demo website: http://fluorida.thoughtworkers.org/tester/open?suite=default.fls

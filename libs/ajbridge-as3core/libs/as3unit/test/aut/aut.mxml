@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+ xmlns:mx="http://www.adobe.com/2006/mxml"
+ layout="vertical"
+ backgroundGradientColors="[#ffffff, #c0c0c0]"
+ width="100%"
+ height="100%">
+ 	<mx:Script>
+        <![CDATA[
+        	import mx.collections.ArrayCollection;
+        	
+			private function sayHiAfter(seconds:int) : void {
+				var timer:Timer = new Timer(1000, seconds);
+				timer.addEventListener(TimerEvent.TIMER_COMPLETE, timeToSay);
+				timer.start();
+			}
+			
+			private function timeToSay(event:TimerEvent) : void {
+				say('delayed hello');
+			}
+			
+			private function say(message:String) : void {
+				helloText.text = message;
+			}
+			
+			[Bindable]
+            public var names:ArrayCollection = new ArrayCollection(
+                [ {label:"Andy", data:1}, 
+                  {label:"Billy", data:2}, 
+                  {label:"Charles", data:3} ]);
+            
+            private function changeHandler(event:Event):void {
+                helloText.text = "You selected: " +  ComboBox(event.target).selectedItem.label;
+            } 
+            
+            private function clickCanvas(event:MouseEvent):void {
+                location.text = "X: " + event.localX + ", Y: " + event.localY;
+            }                           
+        ]]>
+	</mx:Script>
+
+    <mx:TextInput id="helloText" mouseOver="say('mouse in')" mouseOut="say('mouse out')" doubleClickEnabled="true" doubleClick="say('double click')"/>
+    <mx:VBox id="box">
+		<mx:Button label="say hi" name="helloButton" click="say('hi there');" />
+		<mx:Button label="say hi, slowly" name="delayHelloButton" click="sayHiAfter(1)" />
+		<mx:Button label="say hi, even more slowly" name="moreDelayHelloButton" click="sayHiAfter(5)" />
+		<mx:Text id="dummy" />
+		<mx:VBox>
+			<mx:Text id="innerDummy" />
+		</mx:VBox>
+		<mx:VBox id="innerBox">
+			<mx:Text id="anotherDummy" />
+		</mx:VBox>
+    </mx:VBox>
+    <mx:ComboBox name="namesCombo" dataProvider="{names}" change="changeHandler(event);" />
+    
+    <mx:Text id="location" />
+    <mx:Canvas id="myCanvas" 
+        width="200" height="100"  
+        borderStyle="solid" 
+        backgroundColor="#DDDDDD"
+        click="clickCanvas(event);"/>
+
+</mx:Application>

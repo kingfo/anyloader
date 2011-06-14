@@ -1,0 +1,4 @@
+import|sample/mx_list.flh|
+|open|aut_List_Analyse.swf|
+|sleep|1|
+|select_list|css=List[id="source"]|California|

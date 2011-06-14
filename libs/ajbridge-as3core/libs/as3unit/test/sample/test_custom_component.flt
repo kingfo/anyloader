@@ -1,0 +1,5 @@
+|open|aut_customcomponent.swf|
+
+|select|css=CustomComboBox[id="customComponent"] > ComboBox|index|1|
+|waitForElementProperty|css=CustomComboBox[id="customComponent"] > Canvas > Text|text|#00ff12|
+|verifyText|css=CustomComboBox[id="customComponent"] > Canvas > Text|#00ff12|

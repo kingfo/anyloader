@@ -1,0 +1,4 @@
+|open|aut.swf|
+|select|namesCombo|index|1|
+|waitForElementProperty|helloText|text|You selected: Billy|
+|verifyElementProperty|namesCombo|selectedIndex|1|
